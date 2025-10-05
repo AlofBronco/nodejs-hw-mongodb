@@ -6,14 +6,17 @@ import {
   getContactsController,
   updateContactController,
 } from '../controllers/contacts.js';
+import { authenticate } from '../middlewares/authenticate.js';
+import { isValidId } from '../middlewares/isValidId.js';
 import { validateBody } from '../middlewares/validateBody.js';
 import {
   createContactSchema,
   updateContactSchema,
 } from '../validation/contacts.js';
-import { isValidId } from '../middlewares/isValidId.js';
 
 const router = Router();
+
+router.use(authenticate);
 
 router.get('/', getContactsController);
 router.get('/:contactId', isValidId, getContactByIdController);
